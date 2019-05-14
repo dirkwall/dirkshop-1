@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: dirkshop-production-carts
+spec:
+  hosts:
+  - "carts.production.35.189.216.158.xip.io"
+  gateways:
+  - dirkshop-production-gateway
+  http:
+    - route:
+      - destination:
+          host: carts.production.svc.cluster.local
+          subset: blue
+        weight: 0
+      - destination:
+          host: carts.production.svc.cluster.local
+          subset: green
+        weight: 100
